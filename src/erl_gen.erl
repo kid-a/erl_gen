@@ -19,17 +19,20 @@ generate (RulesList, [{nonterminal, N} | R], Sentence) ->
 
     %%io:format ("Applicable Rules: ~w ~n", [ApplicableRules]),
 
-    lists:foreach (
-      fun (E) -> io:format ("~w~n", [E]) end,
-      ApplicableRules),
+    %% lists:foreach (
+    %%   fun (E) -> io:format ("~w~n", [E]) end,
+    %%   ApplicableRules),
+    
+    %%io:format ("~n~n ~p ~n~n", [length(ApplicableRules)]),
 
     case length (ApplicableRules) of 1 ->
 	    [Rule] = ApplicableRules,
 	    %%io:format ("Append:~w ~n", [lists:append (Rule, R)]),
 	    generate (RulesList, lists:append (Rule, R), Sentence);
-	N ->
-	    Number = 1 + random:uniform (N - 1),
+	_ ->
+	    Number = random:uniform (length (ApplicableRules) - 1),
 	    Rule = get_rule_number (ApplicableRules, Number),
+	    %%io:format ("Rule to Apply: ~p ~n", [Rule]),
 	    generate (RulesList, lists:concat ([Rule, R]), Sentence)
     end;
 
@@ -99,14 +102,23 @@ test_parser () ->
     io:format ("~w ~n", [ParseTree3]).
 
 test_generate () ->
-    String = simple_rules (),
+    %%String = simple_rules (),
+    String = design_patterns_no_or (),
     {ok, Tokens, _} = bnf:string (String),
     {ok, ParseTree} = bnf_parse:parse (Tokens),
-    io:format ("~w ~n~n", [ParseTree]),
+    %%io:format ("~w ~n~n", [ParseTree]),
+
+    io:format ("~p ~n", [generate (ParseTree)]),
+    io:format ("~p ~n", [generate (ParseTree)]),
+    io:format ("~p ~n", [generate (ParseTree)]),
     io:format ("~p ~n", [generate (ParseTree)]).
+    
 
 simple_rules () ->
-    "S ::= Adjective Noun; Adjective ::= \"concurrent\"; Noun ::= \"software\";".
+    "S ::= Adjective Noun; Adjective ::= \"concurrent\"; Adjective ::= \"slow\"; Adjective ::= \"fast\"; Adjective ::= \"stupid\"; Noun ::= \"software\";".
+
+design_patterns_no_or () ->
+    "S ::= Adjective Noun; Adjective ::= \"Business\"; Adjective ::=  \"Data Access\" ; Adjective ::=  \"Fast Lane\" ; Adjective ::=  \"Composite\" ; Adjective ::=  \"Front\" ; Adjective ::=  \"Intercepting\" ; Adjective ::=  \"Session\" ; Adjective ::=  \"Transfer\" ; Adjective ::=  \"Value List\" ; Adjective ::=  \"View\" ; Adjective ::=  \"Half\" ; Adjective ::=  \"Immutable\" ; Adjective ::=  \"Dynamic\" ; Adjective ::=  \"Virtual\" ; Adjective ::=  \"Model\" ; Adjective ::=  \"Layered\" ; Adjective ::=  \"Null\" ; Adjective ::=  \"Template\"; Noun ::= \"Delegate\"; Noun ::=  \"Abstract\"; Noun ::=  \"Entity\"; Noun ::=  \"View\"; Noun ::=  \"Object\"; Noun ::=  \"Reader\"; Noun ::=  \"Controller\"; Noun ::=  \"Filter\"; Noun ::=  \"Locator\"; Noun ::=  \"Facade\"; Noun ::=  \"Handler\"; Noun ::=  \"Helper\"; Noun ::=  \"Call\"; Noun ::=  \"Interface\"; Noun ::=  \"Proxy\"; Noun ::=  \"Builder\"; Noun ::=  \"Method\"; Noun ::=  \"Prototype\"; Noun ::=  \"Singleton\"; Noun ::=  \"Pool\"; Noun ::=  \"Marker\"; Noun ::=  \"Factory\"; Noun ::=  \"Bridge\"; Noun ::=  \"Flyweight\"; Noun ::=  \"Service\"; Noun ::=  \"Adapter\"; Noun ::=  \"Listener\"; Noun ::=  \"Decorator\"; Noun ::=  \"Cache\"; Noun ::=  \"Command\"; Noun ::=  \"Strategy\"; Noun ::=  \"Producer\"; Noun ::=  \"Consumer\";".
 
 design_patterns () ->
     "S ::= Adjective Noun; Adjective ::= \"Business\" | \"Data Access\" | \"Fast Lane\" | \"Composite\" | \"Front\" | \"Intercepting\" | \"Session\" | \"Transfer\" | \"Value List\" | \"View\" | \"Half\" | \"Immutable\" | \"Dynamic\" | \"Virtual\" | \"Model\" | \"Layered\" | \"Null\" | \"Template\"; Noun ::= \"Delegate\" | \"Abstract\" | \"Entity\" | \"View\" | \"Object\" | \"Reader\" | \"Controller\" | \"Filter\" | \"Locator\" | \"Facade\" | \"Handler\" | \"Helper\" | \"Call\" | \"Interface\" | \"Proxy\" | \"Builder\" | \"Method\" | \"Prototype\" | \"Singleton\" | \"Pool\" | \"Marker\" | \"Factory\" | \"Bridge\" | \"Flyweight\" | \"Service\" | \"Adapter\" | \"Listener\" | \"Decorator\" | \"Cache\" | \"Command\" | \"Strategy\" | \"Producer\" | \"Consumer\";".
