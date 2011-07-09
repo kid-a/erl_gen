@@ -1,0 +1,12 @@
+S ::= Line "Line:" Status;
+
+Line ::= "Bakerloo" | "District";
+
+Status ::= "Good Service." | "God Service.";
+Status ::= Delay "due to" Cause "." | Delay "due to" Cause "at" Location ".";
+
+Delay ::= "Minor Delays" | "Severe Delays" | "Planned Closure" | "Part Closure";
+
+Cause ::= "planned engineering work" | "elephants on track" | "earlier signal failure" | "royal wedding" | "fund cuts" | "ninja cats";
+
+Location ::= "King's Cross" | "Elephant & Castle" | "Baker Street" | "Covent Garden" | "Holborn" | "Oxford Circus";

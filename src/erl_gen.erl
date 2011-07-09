@@ -37,9 +37,7 @@ generate () ->
 init ([]) -> {ok, #state{}}.
 
 handle_call ({set_grammar, File}, _From, State) ->
-    io:format ("A"),
     {ok, G} = file:read_file (File),
-    io:format ("B"),
     GrammarContent = binary_to_list (G),
     {ok, Tokens, _} = bnf:string (GrammarContent),
     {ok, AST} = bnf_parse:parse (Tokens),    
@@ -66,7 +64,7 @@ generate (RulesList, [{nonterminal, N} | R], Sentence) ->
 
     %%io:format ("Applicable Rules before: ~p ~n", [AR]),
     ApplicableRules = alternatives (AR),
-    %%io:format ("Applicable Rulesa after: ~p ~n",[ApplicableRules]),
+    %%io:format ("Applicable Rules after: ~p ~n",[ApplicableRules]),
     
     %% lists:foreach (
     %%   fun (E) -> io:format ("~w~n", [E]) end,
@@ -79,8 +77,8 @@ generate (RulesList, [{nonterminal, N} | R], Sentence) ->
 	    %%io:format ("Append:~w ~n", [lists:append (Rule, R)]),
 	    generate (RulesList, lists:append (Rule, R), Sentence);
 	_ ->
-	    Number = random:uniform (length (ApplicableRules) - 1),
-	    Rule = get_rule_number (ApplicableRules, Number),
+	    Number = random:uniform (length (ApplicableRules)),
+	    Rule = lists:nth (Number, ApplicableRules),
 	    %%io:format ("Rule to Apply: ~p ~n", [Rule]),
 	    generate (RulesList, lists:concat ([Rule, R]), Sentence)
     end;
@@ -88,9 +86,6 @@ generate (RulesList, [{nonterminal, N} | R], Sentence) ->
 generate (RulesList, [{terminal, T} | R], Sentence) ->
     generate (RulesList, R, lists:append ([Sentence, remove_quotation_marks (T), " "])).
 
-
-get_rule_number ([F|R], 0) -> F;
-get_rule_number ([F|R], N) -> get_rule_number (R, N - 1).
 
 remove_quotation_marks (String) ->
     lists:filter (fun (C) -> if C == 34 -> false;				  
