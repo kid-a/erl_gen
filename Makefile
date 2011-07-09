@@ -4,6 +4,8 @@ SRC=src
 
 RULES=bnf
 
+all: erl_gen lexer parser
+
 erl_gen:
 	erlc -b beam -o $(EBIN) $(SRC)/erl_gen.erl
 

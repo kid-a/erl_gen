@@ -28,23 +28,24 @@ make_lexer (File) ->
 %% some tests for the lexer
 test_lexer () ->
     String1 = "S ::= Adjective Noun;",
-    io:format("~p ~n", [bnf:string (remove_whitespaces (String1))]),
+    io:format("~p ~n", [bnf:string (String1)]),
     
     String2 = "Adjective ::= \"Business\" | \"Data Access\" | \"Fast Lane\";",
-    io:format("~p ~n", [bnf:string (remove_whitespaces (String2))]).
+    io:format("~p ~n", [bnf:string (String2)]),
+    
+    String3 = "S ::= Adjective Noun; S::= Blah Bla",
+    io:format("~p ~n", [bnf:string (String3)]).
 
 test_parser () ->
     String1 = "S ::= Adjective Noun;",
-    {ok, Tokens, _} = bnf:string (remove_whitespaces (String1)),
-    io:format ("~w ~n", 
-	       [bnf_parse:parse (Tokens)]).
+    {ok, Tokens, _} = bnf:string (String1),
+    {ok, ParseTree} = bnf_parse:parse (Tokens),
+    io:format ("~w ~n", [ParseTree]),
+    
+    String2 = "S ::= Adjective Noun; Adjective ::= \"good\";",
+    {ok, Tokens2, _} = bnf:string (String2),
+    
+%%io:format ("~w ~n", [Tokens2]),
+    {ok, ParseTree2} = bnf_parse:parse (Tokens2),
+    io:format ("~w ~n", [ParseTree2]).
 
-%% remove whitespaces from a given string
-remove_whitespaces (String) ->
-    lists:filter (
-      fun (C) -> 
-	      case C of 32 -> false;
-		  _ -> true
-	      end
-      end,
-      String).
