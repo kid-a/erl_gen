@@ -13,7 +13,7 @@ parser:
 	erlc -b beam -o $(EBIN) $(INCLUDE)/$(RULES)_parse.erl 
 
 test_parser:
-	erl -pa $(EBIN) -run \
+	erl -pa $(EBIN) -noshell -run \
 	erl_gen test_parser -s init stop
 
 lexer:
