@@ -1,0 +1,10 @@
+S::= Descr ".";
+
+Descr ::= "Robert Langdon is a" Adj "lecturer at" WhereUni Peculiarity "religious symbolism" CommaPassion "and" Passion;
+
+Adj ::= "handsome" | "pleasant" | "well-educated";
+WhereUni ::= "Boston" | "Harvard";
+Peculiarity ::= "who is interested in" | "who loves" | "whose hobbies are";
+CommaPassion ::= "," Passion CommaPassion;
+CommaPassion ::= "";
+Passion ::= "nutella" | "women" | "chess" | "water polo" | "erl_gen" | "fencing" | "covering his groin in brine";
