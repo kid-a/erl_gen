@@ -17,7 +17,7 @@ Rootsymbol grammar.
 grammar -> rule rule_attach : flatten (['$1', '$2']).
 rule_attach -> grammar : '$1'.
 rule_attach -> '$empty' : [].
-rule -> nonterminal equals body : {rule, '$1', '$2', '$3'}.
+rule -> nonterminal equals body : {rule, {type_of ('$1'), value_of ('$1')}, '$2', '$3'}.
 body -> elem body_attach : flatten (['$1', '$2']).
 body_attach -> body : '$1'.
 body_attach -> end_of_rule : [].
