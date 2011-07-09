@@ -6,6 +6,9 @@ RULES=bnf
 
 all: erl_gen lexer parser
 
+run: all
+	erl -pa $(EBIN)
+
 erl_gen:
 	erlc -b beam -o $(EBIN) $(SRC)/erl_gen.erl
 

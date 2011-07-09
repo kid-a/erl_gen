@@ -4,6 +4,7 @@ T = "(\.|[^\\"])*"
 P = \|
 E = ::=
 W = \s
+NEW = \n
 EOR = ;
 
 Rules.
@@ -12,6 +13,7 @@ Rules.
 {P} : {token, {pipe, TokenLine, TokenChars}}.
 {E} : {token, {equals, TokenLine, TokenChars}}.
 {W} : skip_token.
+{NEW} : skip_token.
 {EOR} : {token, {end_of_rule, TokenLine, TokenChars}}.
 
 Erlang code.
