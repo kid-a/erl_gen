@@ -9,17 +9,17 @@ CommaPassion ::= "," Passion CommaPassion;
 CommaPassion ::= "";
 Passion ::= "nutella" | "women" | "chess" | "water polo" | "erl_gen" | "fencing" | "covering his groin in brine";
 
-Introd ::= In Receives;
+Introd ::= In Receives"." Whodied Founddead "...";
 
 In ::= "During a lesson on the phallic symbolism in the works of" Artist "," | "While he is in" City "for a conference on" Topic ",";
 
-City ::= "Rome" | "Paris" | "Rennes le chateau" | "Istanbul" | "Catania" | "llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch";
+City ::= "Rome" | "Paris" | "Rennes le chateau" | "Istanbul" | "Catania" | "Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch" | "Eyjafjallajoekull";
 
 Topic ::= "aztecs" | "egyptians" | "freemasonry" | "secret paleo-christian symbols";
 
 Artist ::= "Leonardo Da Vinci" | "Bernini" | "Raffaello" | "Michelangelo" | "Donatello" | "Mad Max" | "Tony Blair";
 
-Receives ::= Boblang "receives" Call "from" BadGuy ".";
+Receives ::= Boblang "receives" Call "from" BadGuy;
 
 Boblang ::= "Robert" | "Robert Langdon" | "professor Langdon" | "our hero";
 
@@ -30,3 +30,18 @@ BadGuy ::= Name Surname;
 Name ::= "Horst" | "Klaus" | "Helder" | "Reginald" | "John" | "Frank" | "Ngoro" | "Ubaldo" | "Espedito" | "Abdullah";
 
 Surname ::= "Bertuzzi" | "Contursi" | "Oliveti Cetri" | "Fiat" | "Linux" | "Honda" | "Hasselhoff" | "Macintosh" | "Windows" | "Johnson" | "Thomas" | "Fapperson";
+
+Whodied ::= Occupation Institute;
+
+Occupation ::= "The president" | "The owner" | "The CEO" | "The CTO";
+
+Institute ::= "of CERN" | "of the university of" City | "of the museum of" City;
+
+Founddead ::= "has been found" HowDied "." Howtheyfoundhim;
+
+HowDied ::= "killed" | "quartered" | "slaughtered";
+
+Howtheyfoundhim ::= "His body has been placed in such a way to recall" PieceOfArt "of" Artist;
+
+PieceOfArt ::= "the piety" | "the regurgitation" | "the pain" | "the pork" | "the nativity" | "the rape";
+

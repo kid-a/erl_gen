@@ -5,7 +5,7 @@ SRC=src
 RULES=bnf
 
 
-run: erl_gen.beam lexer.beam parser.beam
+run: erl_gen.beam lexer parser
 	erl -pa $(EBIN)
 
 erl_gen.beam:
@@ -18,8 +18,6 @@ test:
 parser: 
 	erl -pa $(EBIN) -noshell -run \
 	erl_gen make_parser $(INCLUDE)/$(RULES).yrl -s init stop; \
-
-parser.beam:
 	erlc -b beam -o $(EBIN) $(INCLUDE)/$(RULES)_parse.erl 
 
 test_parser:
@@ -29,8 +27,6 @@ test_parser:
 lexer:
 	erl -pa $(EBIN) -noshell -run \
 	erl_gen make_lexer $(INCLUDE)/$(RULES).xrl -s init stop;
-
-lexer.beam: lexer
 	erlc -b beam -o $(EBIN) $(INCLUDE)/$(RULES).erl 
 
 test_lexer:

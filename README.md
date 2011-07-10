@@ -21,8 +21,10 @@ random 'tube update' message.
 Tired of London tube updates? Try with 
 
     > erl_gen:generate (dan_brown).
-    > erl_gen:generate (design_patterns).
+    "Robert Langdon is a handsome lecturer at the Boston University whose hobbies are religious symbolism and water polo. While he is in Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch for a conference on aztecs, Robert Langdon receives a call from Reginald Fapperson. The president of CERN has been found killed. His body has been placed in such a way to recall the nativity of Bernini ... "
 
+    > erl_gen:generate (design_patterns).
+    "Virtual Factory "
 
 
 Description
