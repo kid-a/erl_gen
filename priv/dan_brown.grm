@@ -1,10 +1,32 @@
-S::= Descr ".";
+S::= Descr "." Introd;
 
 Descr ::= "Robert Langdon is a" Adj "lecturer at" WhereUni Peculiarity "religious symbolism" CommaPassion "and" Passion;
 
 Adj ::= "handsome" | "pleasant" | "well-educated";
-WhereUni ::= "Boston" | "Harvard";
+WhereUni ::= "the Boston University" | "Harvard";
 Peculiarity ::= "who is interested in" | "who loves" | "whose hobbies are";
 CommaPassion ::= "," Passion CommaPassion;
 CommaPassion ::= "";
 Passion ::= "nutella" | "women" | "chess" | "water polo" | "erl_gen" | "fencing" | "covering his groin in brine";
+
+Introd ::= In Receives;
+
+In ::= "During a lesson on the phallic symbolism in the works of" Artist "," | "While he is in" City "for a conference on" Topic ",";
+
+City ::= "Rome" | "Paris" | "Rennes le chateau" | "Istanbul" | "Catania" | "llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch";
+
+Topic ::= "aztecs" | "egyptians" | "freemasonry" | "secret paleo-christian symbols";
+
+Artist ::= "Leonardo Da Vinci" | "Bernini" | "Raffaello" | "Michelangelo" | "Donatello" | "Mad Max" | "Tony Blair";
+
+Receives ::= Boblang "receives" Call "from" BadGuy ".";
+
+Boblang ::= "Robert" | "Robert Langdon" | "professor Langdon" | "our hero";
+
+Call ::= "a call" | "an email" | "a fax" | "a smoke signal" | "a carrier pigeon";
+
+BadGuy ::= Name Surname;
+
+Name ::= "Horst" | "Klaus" | "Helder" | "Reginald" | "John" | "Frank" | "Ngoro" | "Ubaldo" | "Espedito" | "Abdullah";
+
+Surname ::= "Bertuzzi" | "Contursi" | "Oliveti Cetri" | "Fiat" | "Linux" | "Honda" | "Hasselhoff" | "Macintosh" | "Windows" | "Johnson" | "Thomas" | "Fapperson";
