@@ -111,6 +111,8 @@ generate_a ([{rule, Axiom, _, _} | Rest] = RulesList) ->
 
 
 generate_a (RulesList, [], Sentence) -> 
+    %% before returning the sentence, remove multiple spaces
+    %% in future versions, this should be handled in a better way
     {ok, R1} = re:compile ("\s+[\.]\s+"),
     {ok, R2} = re:compile ("\s+[,]\s+"),
     {ok, R3} = re:compile ("\s+"),
@@ -119,6 +121,7 @@ generate_a (RulesList, [], Sentence) ->
     S3 = re:replace (S2, R3, " ", [{return, list}, global]);
 
 generate_a (RulesList, [{nonterminal, N} | R], Sentence) ->
+    %% get all the applicable rules
     AR = [B || {rule, {nonterminal, Nonterminal}, _, B} <- RulesList,
 	       Nonterminal == N],
     ApplicableRules = alternatives (AR),
@@ -127,11 +130,11 @@ generate_a (RulesList, [{nonterminal, N} | R], Sentence) ->
 	    [Rule] = ApplicableRules,
 	    generate_a (RulesList, lists:append (Rule, R), Sentence);
 	_ ->
-	    %%Number = random:uniform (length (ApplicableRules)),
 	    Number = crypto:rand_uniform (1, length (ApplicableRules) + 1),
 	    Rule = lists:nth (Number, ApplicableRules),
 	    generate_a (RulesList, lists:concat ([Rule, R]), Sentence)
     end;
+
 generate_a (RulesList, [{terminal, T} | R], Sentence) ->
     generate_a (RulesList, R, lists:append ([Sentence, remove_quotation_marks (T), " "])).
 
@@ -143,6 +146,7 @@ remove_quotation_marks (String) ->
 		  end,
 		  String).
 
+%% when the body of a rule contains pipes, split it into multiple alternatives
 alternatives ([], Accumulator) -> Accumulator;
 alternatives (Body, Accumulator) -> 
     case lists:any (fun (S) -> S == pipe end, Body) of false ->
