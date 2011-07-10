@@ -110,7 +110,14 @@ generate_a ([{rule, Axiom, _, _} | Rest] = RulesList) ->
     generate_a (RulesList, [Axiom], []).
 
 
-generate_a (RulesList, [], Sentence) -> Sentence;
+generate_a (RulesList, [], Sentence) -> 
+    {ok, R1} = re:compile ("\s+[\.]\s+"),
+    {ok, R2} = re:compile ("\s+[,]\s+"),
+    {ok, R3} = re:compile ("\s+"),
+    S1 = re:replace (Sentence, R1, ". ", [{return, list}, global]),
+    S2 = re:replace (S1, R2, ", ", [{return, list}, global]),
+    S3 = re:replace (S2, R3, " ", [{return, list}, global]);
+
 generate_a (RulesList, [{nonterminal, N} | R], Sentence) ->
     AR = [B || {rule, {nonterminal, Nonterminal}, _, B} <- RulesList,
 	       Nonterminal == N],
