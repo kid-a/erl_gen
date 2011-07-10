@@ -12,7 +12,7 @@ You will be provided an Erlang shell. Type:
     > erl_gen:start_link ().
     > erl_gen:generate (london_tube_status).
 
-Et voila`, you've been served. As long as you will invoke the 
+Et voila', you've been served. As long as you will invoke the 
 `erl_gen`:generate (london_tube_status) function, you will be provided with a 
 random 'tube update' message.
 
