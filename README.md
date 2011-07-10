@@ -5,12 +5,12 @@ erl_gen: a random content generator for Erlang[1]
 -------------------------
 Type in your terminal:
 
-$ make run
+    $ make run
 
 You will be provided an Erlang shell. Type:
 
-   > erl_gen:start_link ().
-   > erl_gen:generate (london_tube_status).
+    > erl_gen:start_link ().
+    > erl_gen:generate (london_tube_status).
 
 Et voila`, you've been served. As long as you will invoke the 
 `erl_gen`:generate (london_tube_status) function, you will be provided with a 
@@ -18,8 +18,8 @@ random 'tube update' message.
 
 Tired of London tube updates? Try with 
 
-   > erl_gen:generate (dan_brown).
-   > erl_gen:generate (design_patterns).
+    > erl_gen:generate (dan_brown).
+    > erl_gen:generate (design_patterns).
 
 
 
@@ -37,7 +37,7 @@ Grammars for `erl_gen` must comply with the following rules:
 
 * nonterminals are string literals with the first character uppercase (e.g. Nonterminal)
 * terminals are strings surrounded by quotation marks (e.g. "this is a string")
-* all rules must be in the form 'Nonterminal ::= <body>;', where <body> can be any sequence of nonterminals, teminals and pipes ('|')
+* all rules must be in the form `Nonterminal ::= body;`, where `body` can be any sequence of nonterminals, teminals and pipes ('|')
 
 An example will make things clearer. 
 Suppose you have defined the following `CFG`:
