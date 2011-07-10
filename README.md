@@ -1,7 +1,7 @@
 erl_gen: a random content generator for Erlang[1]
 =================================================
 
-`erl_gen` for the impatient
+erl_gen for the impatient
 -------------------------
 Type in your terminal:
 
