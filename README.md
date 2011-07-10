@@ -13,7 +13,7 @@ You will be provided an Erlang shell. Type:
     > erl_gen:generate (london_tube_status).
 
 Et voila', you've been served. As long as you will invoke the 
-`erl_gen`:generate (london_tube_status) function, you will be provided with a 
+erl_gen:generate (london_tube_status) function, you will be provided with a 
 random 'tube update' message.
 
 Tired of London tube updates? Try with 
@@ -57,7 +57,7 @@ grammar is ('->' means 'derives in one step')
     S -> Adjective Noun -> "bad" Noun -> "bad" "girl"
 
 
-Getting `erl_gen` up and running
+Getting erl_gen up and running
 ------------------------------
 
 All you have to do is type in your terminal:
@@ -72,15 +72,15 @@ The Erlang shell will be started. Then, type:
 
 where <grammar path> is the path to the file containing the `CFG` specification.
 
-`erl_gen` comes with three sample grammars (all available under the priv/ directory).
+`erl_gen` comes with three sample grammars (all available under the `priv/` directory).
 
 
 
 Behind the hood
 ---------------
 
-`erl_gen` relies on leex and yecc to parse the `CFG`.
-The include/ directory contains the specification files, namely bnf.xrl and 
+`erl_gen` relies on `leex` and `yecc` to parse the `CFG`.
+The `include/` directory contains the specification files, namely bnf.xrl and 
 bnf.yrl, to generate the lexical analyzer and the parser.
 
 If one whishes to change any of the specification files, it has also to 
@@ -122,7 +122,7 @@ Because:
 * i wanted to have a lot of fun
 * i wanted to have really a lot of fun :D
 
-`erl_gen` has been largely inspired by polygen (http://www.polygen.org).
+`erl_gen` has been largely inspired by `polygen` (http://www.polygen.org).
 
 Although `erl_gen` can be seen as a (really?) serious program, it gives its best 
 when used as a tool to make parodies about habits and stereotypes.
@@ -136,78 +136,9 @@ Contact me
 You have seen how i waste my spare time: writing futile and stupid software.
 Do you really want to contact me?
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Really?
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 You sure?
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 Ok, here is my mail address: loris [dot] fichera [at] gmail [dot] com
 
