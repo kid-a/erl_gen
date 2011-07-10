@@ -117,9 +117,9 @@ Why did you do that?
 --------------------
 
 Because:
-  *. i wanted to have fun
-  *. i wanted to have a lot of fun
-  *. i wanted to have really a lot of fun :D
+* i wanted to have fun
+* i wanted to have a lot of fun
+* i wanted to have really a lot of fun :D
 
 erl_gen has been largely inspired by polygen (http://www.polygen.org).
 
