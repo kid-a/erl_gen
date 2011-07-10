@@ -79,19 +79,55 @@ erl_gen comes with three sample grammars (all available under the priv/ director
 3. Behind the hood
 ==================
 
-erl_gen relies on leex and yecc.
+erl_gen relies on leex and yecc to parse the CFG.
+The include/ directory contains the specification files, namely bnf.xrl and 
+bnf.yrl, to generate the lexical analyzer and the parser.
 
-At each step, the choice of the nonterminal to reduce...
+If one whishes to change any of the specification files, it has also to 
+re-generate the lexical analyzer and/or the parser, with:
 
+$ make lexer
+$ make parser
+ 
+These Makefile targets relies on the following two functions exported by the
+erl_gen module:
+
+make_lexer/1
+make_parser/1 
+
+The output of the parser is an Abstract Syntax Tree (AST), representing the 
+parsed CFG. The AST is represented by means of a list of rules, e.g.:
+
+[
+ {rule, {nonterminal, ...}, {equals, ...} [ <rule body> ]
+ ...
+]
+
+The first rule contained in the CFG specification is taken as the grammar's 
+axiom. 
+When asked for a random sentence, erl_gen starts the body of the axiom, then
+selects the leftmost appearing nonterminal and reduces it by means of the 
+body of one of the rules in which the nonterminal appears as its head, 
+until no nonterminals appears in the sentential form.
+
+The choice of the rule to apply is driven by crypto:uniform/2.
 
 
 4. Why did you do that?
 =======================
 
-erl_gen is the erlang clone of the already existing polygen
+Because:
+  1. i wanted to have fun
+  2. i wanted to have a lot of fun
+  3. i wanted to have really a lot of fun :D
+
+erl_gen has been largely inspired by polygen (http://www.polygen.org).
 
 Although erl_gen can be seen as a (really?) serious program, it gives its best 
 when used as a tool to make parodies about habits and stereotypes.
+That is, you can focus on a ridiculous theme, extract its rules and its patterns,
+then reproduce it infinite times!
+
 
 5. Contact me
 =============
