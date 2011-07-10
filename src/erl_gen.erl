@@ -1,3 +1,5 @@
+%% @author Loris Fichera <loris.fichera@gmail.com>
+%% @doc The infamous erl_gen program.
 -module (erl_gen).
 
 -behaviour (gen_server).
@@ -7,34 +9,83 @@
 -export ([start_link/0,
 	  set_grammar/1,
 	  generate/0,
+	  generate/1,
 
 	  init/1,
 	  handle_call/3,
 	  terminate/2,
-	  
+
+	  make_parser/1,
+	  make_lexer/1,
 
 	  test_generate/0,
-	  make_parser/1,
 	  test_parser/0,
-	  make_lexer/1,
 	  test_lexer/0]).
 
 %%==============================================================================
 %% api
 %%==============================================================================
-start_link () -> 
-    gen_server:start_link({local, erl_gen}, ?MODULE, [], []).
+%%------------------------------------------------------------------------------
+%% Func: start_link/0
+%% @doc Starts the server.
+%%------------------------------------------------------------------------------
+start_link () -> gen_server:start_link({local, erl_gen}, ?MODULE, [], []).
 
-set_grammar (File) ->
-    gen_server:call (erl_gen, {set_grammar, File}).
 
-generate () ->
+%%------------------------------------------------------------------------------
+%% Func: set_grammar/1
+%% @doc Give erl_gen the path to the file containing the CFG.
+%%      erl_gen parses the file and saves the CFG in its state.
+%%      If the CFG is not well-formed, erl_gen CRASHES.
+%%
+%% Parameters:
+%%   File :: string ()
+%%
+%% Reply:
+%%   ok
+%%------------------------------------------------------------------------------
+set_grammar (File) -> gen_server:call (erl_gen, {set_grammar, File}).
+
+
+%%------------------------------------------------------------------------------
+%% Func: generate/0
+%% @doc Returns a randomly-derived sentence from the CFG contained in 
+%%      erl_gen state.
+%%
+%% Reply:
+%%   Sentence :: string ()
+%%------------------------------------------------------------------------------
+generate () -> gen_server:call (erl_gen, {generate}).
+
+%%------------------------------------------------------------------------------
+%% Func: generate/1
+%% @doc Returns a randomly-derived sentence from the CFG indicated by the
+%%      passed parameter.
+%%
+%% Parameters:
+%%   CFG :: dan_brown | london_tube_status | design_patterns
+%%
+%% Reply:
+%%   Sentence :: string ()
+%%------------------------------------------------------------------------------
+generate (dan_brown) -> 
+    gen_server:call (erl_gen, {set_grammar, "priv/dan_brown.grm"}),
+    gen_server:call (erl_gen, {generate});
+
+generate (london_tube_status) ->
+    gen_server:call (erl_gen, {set_grammar, "priv/london_tube_status.grm"}),
+    gen_server:call (erl_gen, {generate});
+
+generate (design_patterns) ->
+    gen_server:call (erl_gen, {set_grammar, "priv/oo_design_patterns.grm"}),
     gen_server:call (erl_gen, {generate}).
+
 
 %%==============================================================================
 %% callbacks
 %%==============================================================================
 init ([]) -> {ok, #state{}}.
+
 
 handle_call ({set_grammar, File}, _From, State) ->
     {ok, G} = file:read_file (File),
@@ -45,50 +96,41 @@ handle_call ({set_grammar, File}, _From, State) ->
     {reply, ok, NewState};
 
 handle_call ({generate}, _From, State) ->
-    Sentence = generate (State#state.grammar),
+    Sentence = generate_a (State#state.grammar),
     {reply, Sentence, State}.
 
+
 terminate (_Reason, _State) -> ok.
-     
+
+   
 %%==============================================================================
 %% ancillary functions
 %%==============================================================================
-generate ([{rule, Axiom, _, _} | Rest] = RulesList) ->
-    generate (RulesList, [Axiom], []).
+generate_a ([{rule, Axiom, _, _} | Rest] = RulesList) ->
+    generate_a (RulesList, [Axiom], []).
 
-generate (RulesList, [], Sentence) -> Sentence;
 
-generate (RulesList, [{nonterminal, N} | R], Sentence) ->
+generate_a (RulesList, [], Sentence) -> Sentence;
+generate_a (RulesList, [{nonterminal, N} | R], Sentence) ->
     AR = [B || {rule, {nonterminal, Nonterminal}, _, B} <- RulesList,
 	       Nonterminal == N],
-
-    %%io:format ("Applicable Rules before: ~p ~n", [AR]),
     ApplicableRules = alternatives (AR),
-    %%io:format ("Applicable Rules after: ~p ~n",[ApplicableRules]),
     
-    %% lists:foreach (
-    %%   fun (E) -> io:format ("~w~n", [E]) end,
-    %%   ApplicableRules),
-    
-    %%io:format ("~n~n ~p ~n~n", [length(ApplicableRules)]),
-
     case length (ApplicableRules) of 1 ->
 	    [Rule] = ApplicableRules,
-	    %%io:format ("Append:~w ~n", [lists:append (Rule, R)]),
-	    generate (RulesList, lists:append (Rule, R), Sentence);
+	    generate_a (RulesList, lists:append (Rule, R), Sentence);
 	_ ->
-	    Number = random:uniform (length (ApplicableRules)),
+	    %%Number = random:uniform (length (ApplicableRules)),
+	    Number = crypto:rand_uniform (1, length (ApplicableRules) + 1),
 	    Rule = lists:nth (Number, ApplicableRules),
-	    %%io:format ("Rule to Apply: ~p ~n", [Rule]),
-	    generate (RulesList, lists:concat ([Rule, R]), Sentence)
+	    generate_a (RulesList, lists:concat ([Rule, R]), Sentence)
     end;
-
-generate (RulesList, [{terminal, T} | R], Sentence) ->
-    generate (RulesList, R, lists:append ([Sentence, remove_quotation_marks (T), " "])).
+generate_a (RulesList, [{terminal, T} | R], Sentence) ->
+    generate_a (RulesList, R, lists:append ([Sentence, remove_quotation_marks (T), " "])).
 
 
 remove_quotation_marks (String) ->
-    lists:filter (fun (C) -> if C == 34 -> false;				  
+    lists:filter (fun (C) -> if C == 34 -> false;
 				true -> true
 			     end
 		  end,
@@ -104,19 +146,16 @@ alternatives (Body, Accumulator) ->
 						       _ -> true
 						   end
 					   end, Body),
-	    
-	    %%io:format ("Remaining: ~p ~n", [lists:nthtail (length (Alternative) + 1, Body)]),
-	    
+	    	    
 	    alternatives ( lists:nthtail (length (Alternative) + 1, Body), 
 			   [Alternative | Accumulator])
     end.
    
-
-
 alternatives (Bodies) ->
     lists:foldl (fun (Body, Acc) -> lists:append (alternatives (Body, []), Acc) end,
 		 [],
 		 Bodies).
+
 
 make_parser (File) ->
     yecc:file (File,[{parserfile, "include/bnf_parse.erl"}]).
@@ -135,6 +174,7 @@ test_lexer () ->
     String3 = "S ::= Adjective Noun; S::= Blah Bla",
     io:format("~p ~n", [bnf:string (String3)]).
 
+%% some tests for the parser
 test_parser () ->
     String1 = "S ::= Adjective Noun;",
     {ok, Tokens, _} = bnf:string (String1),
@@ -158,10 +198,10 @@ test_generate () ->
     {ok, ParseTree} = bnf_parse:parse (Tokens),
     %%io:format ("~w ~n~n", [ParseTree]),
 
-    io:format ("~p ~n", [generate (ParseTree)]),
-    io:format ("~p ~n", [generate (ParseTree)]),
-    io:format ("~p ~n", [generate (ParseTree)]),
-    io:format ("~p ~n", [generate (ParseTree)]).
+    io:format ("~p ~n", [generate_a (ParseTree)]),
+    io:format ("~p ~n", [generate_a (ParseTree)]),
+    io:format ("~p ~n", [generate_a (ParseTree)]),
+    io:format ("~p ~n", [generate_a (ParseTree)]).
     
 
 simple_rules () ->
