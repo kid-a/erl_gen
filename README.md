@@ -1,8 +1,8 @@
 erl_gen: a random content generator for Erlang[1]
 =================================================
 
-0. erl_gen for the impatient
-----------------------------
+erl_gen for the impatient
+-------------------------
 Type in your terminal:
 
 $ make run
@@ -23,8 +23,8 @@ erl_gen:generate (design_patterns).
 
 
 
-1. Description
---------------
+Description
+-----------
 
 erl_gen generates random sentences according to a given context free grammar (CFG),
 expressed in Backus-Naur form (BNF).
@@ -57,8 +57,8 @@ grammar is ('->' means 'derives in one step')
     S -> Adjective Noun -> "bad" Noun -> "bad" "girl"
 
 
-2. Getting erl_gen up and running
----------------------------------
+Getting erl_gen up and running
+------------------------------
 
 All you have to do is type in your terminal:
 
@@ -76,8 +76,8 @@ erl_gen comes with three sample grammars (all available under the priv/ director
 
 
 
-3. Behind the hood
-------------------
+Behind the hood
+---------------
 
 erl_gen relies on leex and yecc to parse the CFG.
 The include/ directory contains the specification files, namely bnf.xrl and 
@@ -113,13 +113,13 @@ until no nonterminals appears in the sentential form.
 The choice of the rule to apply is driven by crypto:uniform/2.
 
 
-4. Why did you do that?
------------------------
+Why did you do that?
+--------------------
 
 Because:
-  1. i wanted to have fun
-  2. i wanted to have a lot of fun
-  3. i wanted to have really a lot of fun :D
+  *. i wanted to have fun
+  *. i wanted to have a lot of fun
+  *. i wanted to have really a lot of fun :D
 
 erl_gen has been largely inspired by polygen (http://www.polygen.org).
 
@@ -129,8 +129,8 @@ That is, you can focus on a ridiculous theme, extract its rules and its patterns
 then reproduce it infinite times!
 
 
-5. Contact me
--------------
+Contact me
+----------
 
 You have seen how i waste my spare time: writing futile and stupid software.
 Do you really want to contact me?
