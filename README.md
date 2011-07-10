@@ -26,10 +26,10 @@ erl_gen:generate (design_patterns).
 Description
 -----------
 
-erl_gen generates random sentences according to a given context free grammar (CFG),
-expressed in Backus-Naur form (BNF).
+erl_gen generates random sentences according to a given context free grammar (`CFG`),
+expressed in Backus-Naur form (`BNF`).
 
-More formally, given a well-formed CFG, it picks up the axiom and 
+More formally, given a well-formed `CFG`, it picks up the axiom and 
 performs a sequence of one-step leftmost derivations, until it gets a complete 
 sentence.
 
@@ -40,7 +40,7 @@ Grammars for erl_gen must comply with the following rules:
     where <body> can be any sequence of nonterminals, teminals and pipes ('|')
 
 An example will make things clearer. 
-Suppose you have defined the following CFG:
+Suppose you have defined the following `CFG`:
 
     S ::= Adjective Noun;
     Adjective ::= "good" | "bad";
@@ -70,7 +70,7 @@ The Erlang shell will be started. Then, type:
     > erl_gen:set_grammar (<grammar path>).
     > erl_gen:generate ().
 
-where <grammar path> is the path to the file containing the CFG specification.
+where <grammar path> is the path to the file containing the `CFG` specification.
 
 erl_gen comes with three sample grammars (all available under the priv/ directory).
 
@@ -79,7 +79,7 @@ erl_gen comes with three sample grammars (all available under the priv/ director
 Behind the hood
 ---------------
 
-erl_gen relies on leex and yecc to parse the CFG.
+erl_gen relies on leex and yecc to parse the `CFG`.
 The include/ directory contains the specification files, namely bnf.xrl and 
 bnf.yrl, to generate the lexical analyzer and the parser.
 
@@ -92,18 +92,18 @@ re-generate the lexical analyzer and/or the parser, with:
 These Makefile targets relies on the following two functions exported by the
 erl_gen module:
 
-make_lexer/1
-make_parser/1 
+* make_lexer/1
+* make_parser/1 
 
-The output of the parser is an Abstract Syntax Tree (AST), representing the 
-parsed CFG. The AST is represented by means of a list of rules, e.g.:
+The output of the parser is an Abstract Syntax Tree (`AST`), representing the 
+parsed `CFG`. The `AST` is represented by means of a list of rules, e.g.:
 
     [
      {rule, {nonterminal, ...}, {equals, ...} [ <rule body> ]
      ...
     ]
 
-The first rule contained in the CFG specification is taken as the grammar's 
+The first rule contained in the `CFG` specification is taken as the grammar's 
 axiom. 
 When asked for a random sentence, erl_gen starts the body of the axiom, then
 selects the leftmost appearing nonterminal and reduces it by means of the 
