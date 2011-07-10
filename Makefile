@@ -27,7 +27,7 @@ parser: $(EBIN)/erl_gen.beam
 	erl -pa $(EBIN) -noshell -run \
 	erl_gen make_parser $(INCLUDE)/$(RULES).yrl -s init stop; \
 	mv $(INCLUDE)/$(RULES)_parse.erl $(SRC)/$(RULES)_parse.erl; \
-	erlc -b beam -o $(EBIN) $(SRC)/$(RULES)_parse.erl;
+	$(BEAM) $(SRC)/$(RULES)_parse.erl;
 
 
 test_parser: $(EBIN)/erl_gen.beam lexer parser
@@ -38,7 +38,7 @@ lexer: $(EBIN)/erl_gen.beam
 	erl -pa $(EBIN) -noshell -run \
 	erl_gen make_lexer $(INCLUDE)/$(RULES).xrl -s init stop; \
 	mv $(INCLUDE)/$(RULES).erl $(SRC)/$(RULES).erl; \
-	erlc -b beam -o $(EBIN) $(SRC)/$(RULES).erl; \
+	$(BEAM) $(SRC)/$(RULES).erl;
 
 
 test_lexer: $(EBIN)/erl_gen.beam lexer

@@ -139,6 +139,8 @@ Future Works
 
 I plan to work on the following issues:
 
+* error handling
+* better punctuation and whitespaces handling
 * better handling of the probability, for a production, to be applied
 * adding of optional subproductions
 * ...
