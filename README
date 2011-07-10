@@ -28,7 +28,7 @@ erl_gen:generate (design_patterns).
 erl_gen generates random sentences according to a given context free grammar (CFG),
 expressed in Backus-Naur form (BNF).
 
-More formally, given a well-formed CFG, it starts from the axiom and 
+More formally, given a well-formed CFG, it picks up the axiom and 
 performs a sequence of one-step leftmost derivations, until it gets a complete 
 sentence.
 
@@ -92,6 +92,87 @@ erl_gen is the erlang clone of the already existing polygen
 
 Although erl_gen can be seen as a (really?) serious program, it gives its best 
 when used as a tool to make parodies about habits and stereotypes.
+
+5. Contact me
+=============
+
+You have seen how i waste my spare time: writing futile and stupid software.
+Do you really want to contact me?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Really?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+You sure?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ok, here is my mail address: loris [dot] fichera [at] gmail [dot] com
 
 
 [1] wait... why did you name the repository erlspike?
