@@ -134,6 +134,16 @@ That is, you can focus on a ridiculous theme, extract its rules and its patterns
 then reproduce it infinite times!
 
 
+Future Works
+------------
+
+I plan to work on the following issues:
+
+* better handling of the probability, for a production, to be applied
+* adding of optional subproductions
+* ...
+
+
 Contact me
 ----------
 
