@@ -1,4 +1,4 @@
-erl_gen: a random content generator for Erlang[1]
+erl_gen: a random content generator for Erlang
 =================================================
 
 erl_gen for the impatient
@@ -157,8 +157,3 @@ Really?
 You sure?
 
 Ok, here is my mail address: loris [dot] fichera [at] gmail [dot] com
-
-
-[1] wait... why did you name the repository erlspike?
-Well... because i changed my mind overnight about what i was going to do. :)
-
