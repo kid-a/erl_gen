@@ -117,6 +117,13 @@ until no nonterminals appears in the sentential form.
 The choice of the rule to apply is driven by crypto:uniform/2.
 
 
+Dependencies
+------------
+
+You will need at least Erlang/OTP R14B.
+There are compatibility issues with the crypto module included in previous Erlang releases.
+
+
 Why did you do that?
 --------------------
 
